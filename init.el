@@ -21,7 +21,8 @@
     elpy
     flycheck
     material-theme
-    py-autopep8))
+    py-autopep8
+    magit))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -58,4 +59,8 @@
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
+
+;; chinese XiaoHe input
+(require 'flypy)
+(custom-set-variables '(default-input-method "chinese-flypy"))
 ;; init.el ends here
