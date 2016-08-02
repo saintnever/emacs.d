@@ -1,17 +1,27 @@
 
 ;; ----- smex-history -----
 (
- magit-status
  load-file
- cd
- 5x5
- arp
- dbx
- dig
+ text-scale-set
+ describe-font
+ set-frame-font
+ eval-buffer
+ tramp-cleanup-connection
+ tramp-bug
 )
 
 ;; ----- smex-data -----
 (
- (load-file . 1)
+ (load-file . 4)
  (magit-status . 2)
+ (eshell . 1)
+ (describe-font . 4)
+ (term . 1)
+ (ansi-term . 1)
+ (package-install . 1)
+ (tramp-bug . 1)
+ (tramp-cleanup-connection . 3)
+ (text-scale-set . 10)
+ (eval-buffer . 2)
+ (set-frame-font . 1)
 )

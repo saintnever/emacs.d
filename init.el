@@ -36,7 +36,10 @@
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'material t) ;; load material theme
 (global-linum-mode t) ;; enable line numbers globally
+(set-default-font "Lucida Sans Unicode 12")
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
+
+
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
 
@@ -113,4 +116,15 @@
 
         (delete-dups ad-return-value)
         (reverse ad-return-value))))
+;; tramp for windows
+(require 'tramp)
+(cond
+ ((eq system-type 'windows-nt)
+  (setq tramp-default-method "plink"
+      tramp-password-end-of-line "\r\n"))
+  ((eq system-type 'gnu/linux)
+   (setq tramp-default-method "ssh")))
+(setq tramp-default-user "ztx"
+      tramp-default-host "166.111.139.147")
+(setq password-cache-expiry 36000)
 ;; init.el ends here
