@@ -37,7 +37,9 @@
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'material t) ;; load material theme
 (global-linum-mode t) ;; enable line numbers globally
-(set-default-font "Lucida Sans Unicode 12")
+(cond
+ ((eq system-type 'windows-nt)
+  (set-default-font "Lucida Sans Unicode 12")))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
 
 
