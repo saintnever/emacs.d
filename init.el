@@ -24,7 +24,10 @@
     material-theme
     py-autopep8
     magit
-    smex))
+    smex
+    rainbow-delimiters
+    ace-jump-mode
+    ))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -43,12 +46,36 @@
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
 
 
+;; PROGRAMMING SETTING
+;; ----------------------------------------
+;; delimiter settings
+(require 'highlight-parentheses)
+(add-hook 'prog-mode-hook 'electric-pair-mode)
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+;; code navigation
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+;; comment setting
+ (defun comment-dwim-line (&optional arg)
+        "Replacement for the comment-dwim command.
+        If no region is selected and current line is not blank and we are not at the end of the line,
+        then comment current line.
+        Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+          (interactive "*P")
+          (comment-normalize-vars)
+          (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+              (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+            (comment-dwim arg)))
+  (global-set-key "\M-;" 'comment-dwim-line)
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
 
 (elpy-enable)
 (elpy-use-ipython)
-
+;; (require 'request)
+;; (require 'ein)        
+;;(setq ein:use-auto-complete t)
 ;; use flycheck not flymake with elpy
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -58,8 +85,11 @@
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-;; setting about org-mode
+
+;; ORG-MODE SETTING
+;; ----------------------------------------
 (setq org-latex-to-pdf-process '("PDFLATEX=\"pdflatex –shell-escape\" texi2dvi -p %f"))
+(global-set-key (kbd "C-c a") 'org-agenda)
 
 ;; window navigation settings
 (global-set-key (kbd "C-x <up>") 'windmove-up)
@@ -69,7 +99,13 @@
 
 ;; chinese XiaoHe input
 (require 'flypy)
-(custom-set-variables '(default-input-method "chinese-flypy"))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default-input-method "chinese-flypy")
+ '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org"))))
 
 ;;smex
 (autoload 'smex "smex")
@@ -131,3 +167,9 @@
       tramp-default-host "166.111.139.147")
 (setq password-cache-expiry 36000)
 ;; init.el ends here
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
