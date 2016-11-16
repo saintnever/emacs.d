@@ -24,6 +24,7 @@
     material-theme
     py-autopep8
     magit
+    auctex
     smex
     rainbow-delimiters
     highlight-parentheses
@@ -86,7 +87,39 @@
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-
+;; LaTeX SETTING
+;; ----------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(TeX-source-correlate-method (quote synctex))
+ '(TeX-source-correlate-mode t)
+ '(TeX-view-program-list
+   (quote
+    (("Sumatra PDF"
+      ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
+       (mode-io-correlate " -forward-search %b %n")
+       " %o")))))
+ '(TeX-view-program-selection
+   (quote
+    (((output-dvi style-pstricks)
+      "dvips and start")
+     (output-dvi "Yap")
+     (output-pdf "Sumatra PDF")
+     (output-html "start"))))
+ '(default-input-method "chinese-flypy")
+ '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
+ '(package-selected-packages
+   (quote
+    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 ;; ORG-MODE SETTING
 ;; ----------------------------------------
 (setq org-latex-to-pdf-process '("PDFLATEX=\"pdflatex –shell-escape\" texi2dvi -p %f"))
@@ -100,13 +133,7 @@
 
 ;; chinese XiaoHe input
 (require 'flypy)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default-input-method "chinese-flypy")
- '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org"))))
+
 
 ;;smex
 (autoload 'smex "smex")
@@ -168,9 +195,4 @@
       tramp-default-host "166.111.139.147")
 (setq password-cache-expiry 36000)
 ;; init.el ends here
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
