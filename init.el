@@ -26,6 +26,7 @@
     magit
     smex
     rainbow-delimiters
+    highlight-parentheses
     ace-jump-mode
     ))
 
