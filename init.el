@@ -7,7 +7,7 @@
 ;;(let ((default-directory  "~/.emacs.d/packages/"))
  ;; (normal-top-level-add-to-load-path '("."))
   ;;(normal-top-level-add-subdirs-to-load-path))
-(add-to-list 'load-path "~/emacs.d/packages/")
+(add-to-list 'load-path "~/.emacs.d/packages/")
 ;; predictive install location
 ;;     (add-to-list 'load-path "~/.emacs.d/packages/predictive/")
 ;; dictionary locations
@@ -27,6 +27,7 @@
 
 (defvar myPackages
   '(better-defaults
+    auto-complete
     ein
     elpy
     flycheck
@@ -67,18 +68,19 @@ ac-source-abbrev
 ac-source-words-in-same-mode-buffers))
 
 ;; ISPELL SETTING
- (add-to-list 'ispell-dictionary-alist '(
-                                          ("english"
-                                           "[[:alpha:]]"
+(require 'ispell)
+(add-to-list 'ispell-dictionary-alist '(
+                                         ("english"
+                                          "[[:alpha:]]"
                                            "[^[:alpha:]]"
                                            "[']"
                                             t
                                             ("-d" "en_US")
                                             nil
                                             utf-8)))
-  (setq-default ispell-program-name (executable-find "hunspell"))
-  (setq ispell-local-dictionary-alist ispell-dictionary-alist)
-  (setq ispell-hunspell-dictionary-alist ispell-dictionary-alist)
+(setq-default ispell-program-name (executable-find "hunspell"))
+(setq ispell-local-dictionary-alist ispell-dictionary-alist)
+(setq ispell-hunspell-dictionary-alist ispell-dictionary-alist)
 (setq ispell-dictionary "english")
 ; FLYSPELL SETTING
 (require 'flyspell-correct-ido)
