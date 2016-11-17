@@ -3,8 +3,17 @@
 
 ;; INSTALL PACKAGES
 ;; --------------------------------------
-(add-to-list 'load-path "~/.emacs.d/packages/")
 
+;;(let ((default-directory  "~/.emacs.d/packages/"))
+ ;; (normal-top-level-add-to-load-path '("."))
+  ;;(normal-top-level-add-subdirs-to-load-path))
+(add-to-list 'load-path "~/emacs.d/packages/")
+;; predictive install location
+;;     (add-to-list 'load-path "~/.emacs.d/packages/predictive/")
+;; dictionary locations
+;;   (add-to-list 'load-path "~/.emacs.d/packages/predictive/latex/")
+;; (add-to-list 'load-path "~/.emacs.d/packages/predictive/texinfo/")
+;;(add-to-list 'load-path "~/.emacs.d/packages/predictive/html/")
 (require 'package)
 
 (add-to-list 'package-archives
@@ -21,6 +30,7 @@
     ein
     elpy
     flycheck
+    flyspell-correct
     material-theme
     py-autopep8
     magit
@@ -46,8 +56,33 @@
  ((eq system-type 'windows-nt)
   (set-default-font "Lucida Sans Unicode 12")))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
+(global-set-key (kbd "M-o")  'mode-line-other-buffer)
 
+;; AUTO-COMPLETE SETTING
+(require 'auto-complete)
+(setq ac-dwim t)
+(ac-config-default)
+(setq ac-sources '(ac-source-yasnippet
+ac-source-abbrev
+ac-source-words-in-same-mode-buffers))
 
+;; ISPELL SETTING
+ (add-to-list 'ispell-dictionary-alist '(
+                                          ("english"
+                                           "[[:alpha:]]"
+                                           "[^[:alpha:]]"
+                                           "[']"
+                                            t
+                                            ("-d" "en_US")
+                                            nil
+                                            utf-8)))
+  (setq-default ispell-program-name (executable-find "hunspell"))
+  (setq ispell-local-dictionary-alist ispell-dictionary-alist)
+  (setq ispell-hunspell-dictionary-alist ispell-dictionary-alist)
+(setq ispell-dictionary "english")
+; FLYSPELL SETTING
+(require 'flyspell-correct-ido)
+(define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic)
 ;; PROGRAMMING SETTING
 ;; ----------------------------------------
 ;; delimiter settings
@@ -69,10 +104,10 @@
           (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
               (comment-or-uncomment-region (line-beginning-position) (line-end-position))
             (comment-dwim arg)))
-  (global-set-key "\M-;" 'comment-dwim-line)
+(global-set-key "\M-;" 'comment-dwim-line)
+
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
-
 (elpy-enable)
 (elpy-use-ipython)
 ;; (require 'request)
@@ -89,11 +124,34 @@
 
 ;; LaTeX SETTING
 ;; ----------------------------------------
+;; reftex SETTING	
+(require 'reftex)	
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+(setq reftex-plug-into-AUCTeX t)
+
+;;auto complete
+(add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'LaTeX-mode-hook 'auto-complete-mode)   
+;; predictive SETTING
+;;(require 'predictive)
+;; load predictive package
+;;(autoload 'predictive-mode "~/.emacs.d/packages/predictive/predictive"
+;;               "Turn on Predictive Completion Mode." t)
+;;(add-hook 'LaTeX-mode-hook 'predictive-mode)
+ ;;(setq predictive-main-dict 'dict-english
+ ;;  predictive-predictive-use-buffer-local-dict t
+ ;;  predictive-auto-learn t
+ ;;  predictive-auto-add-to-dict t
+ ;;  predictive-dict-autosave t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
  '(TeX-source-correlate-method (quote synctex))
  '(TeX-source-correlate-mode t)
  '(TeX-view-program-list
