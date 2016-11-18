@@ -153,7 +153,6 @@ ac-source-words-in-same-mode-buffers))
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
  '(TeX-source-correlate-method (quote synctex))
  '(TeX-source-correlate-mode t)
  '(TeX-view-program-list
@@ -173,7 +172,9 @@ ac-source-words-in-same-mode-buffers))
  '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
  '(package-selected-packages
    (quote
-    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
+    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
+ '(preview-gs-command "gswin64c.exe")
+ '(preview-image-type (quote png)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
