@@ -66,7 +66,7 @@
 (setq ac-sources '(ac-source-yasnippet
 ac-source-abbrev
 ac-source-words-in-same-mode-buffers))
-
+(setq ac-delay 0.5)
 ;; ISPELL SETTING
 (require 'ispell)
 (add-to-list 'ispell-dictionary-alist '(
