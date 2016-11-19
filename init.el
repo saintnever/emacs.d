@@ -58,15 +58,20 @@
   (set-default-font "Lucida Sans Unicode 12")))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
 (global-set-key (kbd "M-o")  'mode-line-other-buffer)
-
+(require 'yasnippet)
+(yas-global-mode 1)
 ;; AUTO-COMPLETE SETTING
 (require 'auto-complete)
+(require 'ac-math)
 (setq ac-dwim t)
 (ac-config-default)
 (setq ac-sources '(ac-source-yasnippet
 ac-source-abbrev
 ac-source-words-in-same-mode-buffers))
-(setq ac-delay 0.5)
+(setq ac-math-unicode-in-math-p t)
+(ac-flyspell-workaround)
+
+;(setq ac-delay 0.5)
 ;; ISPELL SETTING
 (require 'ispell)
 (add-to-list 'ispell-dictionary-alist '(
@@ -173,14 +178,15 @@ ac-source-words-in-same-mode-buffers))
  '(package-selected-packages
    (quote
     (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
- '(preview-gs-command "gswin64c.exe")
- '(preview-image-type (quote png)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+ (setq preview-gs-command "gswin64c.exe")
+ (setq preview-image-type (quote png)))
 ;; ORG-MODE SETTING
 ;; ----------------------------------------
 (setq org-latex-to-pdf-process '("PDFLATEX=\"pdflatex –shell-escape\" texi2dvi -p %f"))
