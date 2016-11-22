@@ -175,9 +175,11 @@ ac-source-words-in-same-mode-buffers))
      (output-html "start"))))
  '(default-input-method "chinese-flypy")
  '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
+  '( preview-gs-command "gswin64c.exe")
+ '( preview-image-type (quote png))
  '(package-selected-packages
    (quote
-    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
+    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -185,8 +187,6 @@ ac-source-words-in-same-mode-buffers))
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
- (setq preview-gs-command "gswin64c.exe")
- (setq preview-image-type (quote png)))
 ;; ORG-MODE SETTING
 ;; ----------------------------------------
 (setq org-latex-to-pdf-process '("PDFLATEX=\"pdflatex –shell-escape\" texi2dvi -p %f"))
