@@ -176,12 +176,12 @@ ac-source-words-in-same-mode-buffers))
      (output-html "start"))))
  '(default-input-method "chinese-flypy")
  '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
- '(preview-gs-command "gswin64c.exe")
+ '(preview-gs-command "gswin64c")
  '(preview-image-type (quote png))
  '(package-selected-packages
    (quote
     (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
-
+ 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
