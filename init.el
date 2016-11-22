@@ -28,6 +28,7 @@
 (defvar myPackages
   '(better-defaults
     auto-complete
+    ac-math
     ein
     elpy
     flycheck
@@ -66,7 +67,7 @@
 (setq ac-dwim t)
 (ac-config-default)
 (setq ac-sources '(ac-source-yasnippet
-ac-source-abbrev
+ac-source-abbrev 
 ac-source-words-in-same-mode-buffers))
 (setq ac-math-unicode-in-math-p t)
 (ac-flyspell-workaround)
@@ -175,8 +176,8 @@ ac-source-words-in-same-mode-buffers))
      (output-html "start"))))
  '(default-input-method "chinese-flypy")
  '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
-  '( preview-gs-command "gswin64c.exe")
- '( preview-image-type (quote png))
+ '(preview-gs-command "gswin64c.exe")
+ '(preview-image-type (quote png))
  '(package-selected-packages
    (quote
     (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
