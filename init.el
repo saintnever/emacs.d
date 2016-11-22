@@ -63,16 +63,26 @@
 (yas-global-mode 1)
 ;; AUTO-COMPLETE SETTING
 (require 'auto-complete)
-(require 'ac-math)
-(setq ac-dwim t)
+(require 'auto-complete-config)
 (ac-config-default)
+(require 'ac-math)
+(add-to-list 'ac-modes 'latex-mode)
+
 (setq ac-sources '(ac-source-yasnippet
 ac-source-abbrev 
 ac-source-words-in-same-mode-buffers))
+(defun ac-LaTeX-mode-setup()
+  (setq ac-sources
+        (append '(ac-source-math-unicode
+                  ac-source-math-latex
+                  ac-source-latex-commands)
+                ac-sources))
+  )
+(add-hook 'LaTeX-mode-hook 'ac-LaTeX-mode-setup)
 (setq ac-math-unicode-in-math-p t)
-(ac-flyspell-workaround)
+;(ac-flyspell-workaround)
 
-;(setq ac-delay 0.5)
+(setq ac-delay 0.3)
 ;; ISPELL SETTING
 (require 'ispell)
 (add-to-list 'ispell-dictionary-alist '(
