@@ -67,6 +67,7 @@
 (setq sml/name-width 30)  
 (setq sml/shorten-directory t)
 (setq sml/shorten-modes t)
+(setq sml/no-confirm-load-theme t)
 (add-hook 'after-init-hook 'sml/setup)
 (nyan-mode t)
 (setq nyan-bar-length 12)
@@ -204,7 +205,7 @@ ac-source-words-in-same-mode-buffers))
  '(preview-image-type (quote png))
  '(package-selected-packages
    (quote
-    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
+    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
