@@ -3,8 +3,17 @@
 
 ;; INSTALL PACKAGES
 ;; --------------------------------------
-(add-to-list 'load-path "~/.emacs.d/packages/")
 
+;;(let ((default-directory  "~/.emacs.d/packages/"))
+ ;; (normal-top-level-add-to-load-path '("."))
+  ;;(normal-top-level-add-subdirs-to-load-path))
+(add-to-list 'load-path "~/.emacs.d/packages/")
+;; predictive install location
+;;     (add-to-list 'load-path "~/.emacs.d/packages/predictive/")
+;; dictionary locations
+;;   (add-to-list 'load-path "~/.emacs.d/packages/predictive/latex/")
+;; (add-to-list 'load-path "~/.emacs.d/packages/predictive/texinfo/")
+;;(add-to-list 'load-path "~/.emacs.d/packages/predictive/html/")
 (require 'package)
 
 (add-to-list 'package-archives
@@ -18,9 +27,12 @@
 
 (defvar myPackages
   '(better-defaults
+    auto-complete
+    ac-math
     ein
     elpy
     flycheck
+    flyspell-correct
     material-theme
     py-autopep8
     magit
@@ -29,6 +41,7 @@
     rainbow-delimiters
     highlight-parentheses
     ace-jump-mode
+    smart-mode-line
     ))
 
 (mapc #'(lambda (package)
@@ -46,8 +59,58 @@
  ((eq system-type 'windows-nt)
   (set-default-font "Lucida Sans Unicode 12")))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
+(global-set-key (kbd "M-o")  'mode-line-other-buffer)
+(require 'yasnippet)
+(yas-global-mode 1)
+;;MODELINE SETTING
+(setq sml/name-width 30)  
+(setq sml/shorten-directory t)
+(setq sml/shorten-modes t)
+(add-hook 'after-init-hook 'sml/setup)
+(nyan-mode t)
+(setq nyan-bar-length 12)
+(setq nyan-wavy-trail t)
 
+;; AUTO-COMPLETE SETTING
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+(require 'ac-math)
+(add-to-list 'ac-modes 'latex-mode)
+;(add-to-list 'ac-modes 'LaTeX-mode)
+(setq ac-sources '(ac-source-yasnippet
+ac-source-abbrev 
+ac-source-words-in-same-mode-buffers))
+(defun ac-LaTeX-mode-setup()
+  (setq ac-sources
+        (append '(ac-source-math-unicode
+                  ac-source-math-latex
+                  ac-source-latex-commands)
+                ac-sources))
+  )
+(add-hook 'LaTeX-mode-hook 'ac-LaTeX-mode-setup)
+(setq ac-math-unicode-in-math-p t)
+;(ac-flyspell-workaround)
+(setq ac-delay 0.2)
 
+;; ISPELL SETTING
+(require 'ispell)
+(add-to-list 'ispell-dictionary-alist '(
+                                         ("english"
+                                          "[[:alpha:]]"
+                                           "[^[:alpha:]]"
+                                           "[']"
+                                            t
+                                            ("-d" "en_US")
+                                            nil
+                                            utf-8)))
+(setq-default ispell-program-name (executable-find "hunspell"))
+(setq ispell-local-dictionary-alist ispell-dictionary-alist)
+(setq ispell-hunspell-dictionary-alist ispell-dictionary-alist)
+(setq ispell-dictionary "english")
+; FLYSPELL SETTING
+(require 'flyspell-correct-ido)
+(define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic)
 ;; PROGRAMMING SETTING
 ;; ----------------------------------------
 ;; delimiter settings
@@ -69,10 +132,10 @@
           (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
               (comment-or-uncomment-region (line-beginning-position) (line-end-position))
             (comment-dwim arg)))
-  (global-set-key "\M-;" 'comment-dwim-line)
+(global-set-key "\M-;" 'comment-dwim-line)
+
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
-
 (elpy-enable)
 (elpy-use-ipython)
 ;; (require 'request)
@@ -89,6 +152,28 @@
 
 ;; LaTeX SETTING
 ;; ----------------------------------------
+;; reftex SETTING	
+(require 'reftex)	
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+(setq reftex-plug-into-AUCTeX t)
+
+;;auto complete
+(add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'LaTeX-mode-hook 'auto-complete-mode)   
+;; predictive SETTING
+;;(require 'predictive)
+;; load predictive package
+;;(autoload 'predictive-mode "~/.emacs.d/packages/predictive/predictive"
+;;               "Turn on Predictive Completion Mode." t)
+;;(add-hook 'LaTeX-mode-hook 'predictive-mode)
+ ;;(setq predictive-main-dict 'dict-english
+ ;;  predictive-predictive-use-buffer-local-dict t
+ ;;  predictive-auto-learn t
+ ;;  predictive-auto-add-to-dict t
+ ;;  predictive-dict-autosave t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -109,11 +194,17 @@
      (output-dvi "Yap")
      (output-pdf "Sumatra PDF")
      (output-html "start"))))
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(default-input-method "chinese-flypy")
  '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
  '(package-selected-packages
    (quote
-    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
+    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
+ '(preview-gs-command "gswin64c")
+ '(preview-image-type (quote png)))
+ 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -133,7 +224,6 @@
 
 ;; chinese XiaoHe input
 (require 'flypy)
-
 
 ;;smex
 (autoload 'smex "smex")
