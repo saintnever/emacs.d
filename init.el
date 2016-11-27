@@ -28,10 +28,7 @@
 (defvar myPackages
   '(better-defaults
     auto-complete
-<<<<<<< HEAD
     ac-math
-=======
->>>>>>> 0a017693885866f4500df4969874ce8bd4736d1e
     ein
     elpy
     flycheck
@@ -63,9 +60,9 @@
   (set-default-font "Lucida Sans Unicode 12")))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
 (global-set-key (kbd "M-o")  'mode-line-other-buffer)
-<<<<<<< HEAD
 (require 'yasnippet)
 (yas-global-mode 1)
+
 ;;MODELINE SETTING
 (setq sml/name-width 30)  
 (setq sml/shorten-directory t)
@@ -97,17 +94,6 @@ ac-source-words-in-same-mode-buffers))
 ;(ac-flyspell-workaround)
 (setq ac-delay 0.2)
 
-=======
-
-;; AUTO-COMPLETE SETTING
-(require 'auto-complete)
-(setq ac-dwim t)
-(ac-config-default)
-(setq ac-sources '(ac-source-yasnippet
-ac-source-abbrev
-ac-source-words-in-same-mode-buffers))
-(setq ac-delay 0.5)
->>>>>>> 0a017693885866f4500df4969874ce8bd4736d1e
 ;; ISPELL SETTING
 (require 'ispell)
 (add-to-list 'ispell-dictionary-alist '(
@@ -214,12 +200,11 @@ ac-source-words-in-same-mode-buffers))
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(default-input-method "chinese-flypy")
  '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
+ '(preview-gs-command "gswin64c")
+ '(preview-image-type (quote png))
  '(package-selected-packages
    (quote
     (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
-
- '(preview-gs-command "gswin64c")
- '(preview-image-type (quote png)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
