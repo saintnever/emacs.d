@@ -4,16 +4,7 @@
 ;; INSTALL PACKAGES
 ;; --------------------------------------
 
-;;(let ((default-directory  "~/.emacs.d/packages/"))
- ;; (normal-top-level-add-to-load-path '("."))
-  ;;(normal-top-level-add-subdirs-to-load-path))
 (add-to-list 'load-path "~/.emacs.d/packages/")
-;; predictive install location
-;;     (add-to-list 'load-path "~/.emacs.d/packages/predictive/")
-;; dictionary locations
-;;   (add-to-list 'load-path "~/.emacs.d/packages/predictive/latex/")
-;; (add-to-list 'load-path "~/.emacs.d/packages/predictive/texinfo/")
-;;(add-to-list 'load-path "~/.emacs.d/packages/predictive/html/")
 (require 'package)
 
 (add-to-list 'package-archives
@@ -42,6 +33,7 @@
     highlight-parentheses
     ace-jump-mode
     smart-mode-line
+    nyan-mode
     ))
 
 (mapc #'(lambda (package)
@@ -69,7 +61,7 @@
 (setq sml/shorten-modes t)
 (setq sml/no-confirm-load-theme t)
 (add-hook 'after-init-hook 'sml/setup)
-(nyan-mode t)
+(if nyan-mode () (nyan-mode t))
 (setq nyan-bar-length 12)
 (setq nyan-wavy-trail t)
 
@@ -92,8 +84,8 @@ ac-source-words-in-same-mode-buffers))
   )
 (add-hook 'LaTeX-mode-hook 'ac-LaTeX-mode-setup)
 (setq ac-math-unicode-in-math-p t)
-;(ac-flyspell-workaround)
-(setq ac-delay 0.2)
+;; (ac-flyspell-workaround)
+(setq ac-delay 0.3)
 
 ;; ISPELL SETTING
 (require 'ispell)
@@ -200,7 +192,7 @@ ac-source-words-in-same-mode-buffers))
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(default-input-method "chinese-flypy")
- '(org-agenda-files (quote ("~/org/build.org" "~/org/lab.org")))
+  '(org-agenda-files (quote ("~/org/thu.org")))
  '(preview-gs-command "gswin64c")
  '(preview-image-type (quote png))
  '(package-selected-packages
@@ -215,6 +207,7 @@ ac-source-words-in-same-mode-buffers))
  )
 ;; ORG-MODE SETTING
 ;; ----------------------------------------
+(add-to-list 'ac-modes 'org-mode)
 (setq org-latex-to-pdf-process '("PDFLATEX=\"pdflatex –shell-escape\" texi2dvi -p %f"))
 (global-set-key (kbd "C-c a") 'org-agenda)
 
