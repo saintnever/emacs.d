@@ -50,6 +50,11 @@
 (cond
  ((eq system-type 'windows-nt)
   (set-default-font "Lucida Sans Unicode 12")))
+;; Chinese Font 
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font)
+                    charset
+                    (font-spec :family "Microsoft YaHei" :Size 14)))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
 (global-set-key (kbd "M-o")  'mode-line-other-buffer)
 (require 'yasnippet)
@@ -86,7 +91,7 @@ ac-source-words-in-same-mode-buffers))
 (add-hook 'LaTeX-mode-hook 'ac-LaTeX-mode-setup)
 (setq ac-math-unicode-in-math-p t)
 ;; (ac-flyspell-workaround)
-(setq ac-delay 0.3)
+(setq ac-delay 0.2)
 
 ;; ISPELL SETTING
 (require 'ispell)
@@ -158,17 +163,13 @@ ac-source-words-in-same-mode-buffers))
 (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook 'auto-complete-mode)   
-;; predictive SETTING
-;;(require 'predictive)
-;; load predictive package
-;;(autoload 'predictive-mode "~/.emacs.d/packages/predictive/predictive"
-;;               "Turn on Predictive Completion Mode." t)
-;;(add-hook 'LaTeX-mode-hook 'predictive-mode)
- ;;(setq predictive-main-dict 'dict-english
- ;;  predictive-predictive-use-buffer-local-dict t
- ;;  predictive-auto-learn t
- ;;  predictive-auto-add-to-dict t
- ;;  predictive-dict-autosave t)
+;; set XeTeX mode in TeX/LaTeX
+(add-hook 'LaTeX-mode-hook 
+          (lambda()
+             (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+            ; (setq TeX-command-default "XeLaTeX")
+             (setq TeX-save-query nil)
+             (setq TeX-show-compilation t)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
