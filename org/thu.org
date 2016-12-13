@@ -1,0 +1,84 @@
+#+TODO: TODO INPROGRESS FEEDBACK POSTPONED | DONE CANCELED 
+#+TAGS: lab(l) class(c) sport(s) improve(i) errand(e)
+
+
+* TODO RFID-SKIN                                                        :lab:
+
+** DONE Init data collection and processing
+
+** TODO off-line learning algorithm
+
+*** TODO Collect more posture data
+*** TODO Data label
+*** TODO Machine learning or deep learning
+
+** TODO Realtime learning algorithm 
+* TODO RFID-SPACE                                                       :lab:
+** TODO Story
+*** DONE Dynamic monitoring schemes design
+    DEADLINE: <2016-12-08 Thu> SCHEDULED: <2016-12-01 Thu>
+*** CANCELED Funding application
+    DEADLINE: <2016-12-11 Sun>
+** TODO Techniques evaluation
+** TODO Application brainstorm
+** TODO First paper draft
+* TODO PowerTouch                                                       :lab:
+** TODO Story
+*** DONE Literature review
+*** INPROGRESS First draft
+    DEADLINE: <2016-12-11 Sun>
+**** DONE Introduction
+     SCHEDULED: <2016-12-04 Sun>-<2016-12-05 Mon>
+**** DONE Current Power Solutions
+     SCHEDULED: <2016-12-06 Tue>-<2016-12-08 Thu>
+**** DONE Active Power Distribution
+     SCHEDULED: <2016-12-09 Fri>-<2016-12-10 Sat>
+** DONE Technique Evaluation
+*** DONE Human conduction experiment 
+    SCHEDULED: <2016-12-05 Mon>
+   + [ ] Frequency sweep
+   + [ ] Waveform tryout
+   + [ ] Data transfer test
+*** DONE Electrode coupling experiment
+    SCHEDULED: <2016-12-10 Sat>
+    + different electrode size, frequency, amplitude
+** TODO User Study
+*** TODO User study design
+    SCHEDULED: <2016-12-13 Tue>-<2016-12-16 Fri>
+*** TODO Pilot study
+    SCHEDULED: <2016-12-18 Sun>-<2016-12-23 Fri>
+*** TODO User study
+    SCHEDULED: <2016-12-26 Mon>-<2017-01-15 Sun>
+** TODO Hardware implementation
+*** TODO Schematic design
+    SCHEDULED: <2016-12-13 Tue>-<2016-12-18 Sun>
+*** TODO Layout and send out for manufacturing
+    SCHEDULED: <2016-12-19 Mon>
+*** TODO Hardware debug and evaluation
+** TODO Application scenarios
+*** TODO Brainstorm cases
+    SCHEDULED: <2016-12-20 Tue>
+*** TODO Buy materials required
+*** TODO Application realization 
+* TODO Assignments                                                    :class:
+
+** TODO Cognitive
+
+*** DONE Project 1
+    SCHEDULED: <2016-12-05 Mon>
+*** TODO Project 2
+** TODO Big Data
+*** INPROGRESS Project 2
+    SCHEDULED: <2016-12-10 Sat> DEADLINE: <2016-12-16 Fri>
+*** TODO Presentation 
+    SCHEDULED: <2016-12-20 Tue>
+** TODO Machine Learning
+*** TODO Project 
+    DEADLINE: <2017-01-02 Mon>
+** TODO Game Theory
+*** DONE Presentation 
+    DEADLINE: <2016-12-08 Thu> 
+* TODO MISC
+** DONE pick up and check signal source                              :errand:
+   SCHEDULED: <2016-12-01 Thu>
+** TODO check all relevant conference submit deadlines                  :lab:
