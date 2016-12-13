@@ -54,6 +54,7 @@
 (global-set-key (kbd "M-o")  'mode-line-other-buffer)
 (require 'yasnippet)
 (yas-global-mode 1)
+(setq sentence-end-double-space nil)
 
 ;;MODELINE SETTING
 (setq sml/name-width 30)  
@@ -133,8 +134,8 @@ ac-source-words-in-same-mode-buffers))
 (elpy-enable)
 (elpy-use-ipython)
 ;; (require 'request)
-;; (require 'ein)        
-;;(setq ein:use-auto-complete t)
+(require 'ein)        
+(setq ein:use-auto-complete t)
 ;; use flycheck not flymake with elpy
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -143,7 +144,8 @@ ac-source-words-in-same-mode-buffers))
 ;; enable autopep8 formatting on save
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-
+;; Emacs25 have issue with elpy, so disable warning
+(setq python-shell-prompt-detect-failure-warning nil)
 ;; LaTeX SETTING
 ;; ----------------------------------------
 ;; reftex SETTING	
@@ -192,7 +194,7 @@ ac-source-words-in-same-mode-buffers))
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(default-input-method "chinese-flypy")
-  '(org-agenda-files (quote ("~/org/thu.org")))
+  '(org-agenda-files (quote ("~/.emacs.d/org/thu.org")))
  '(preview-gs-command "gswin64c")
  '(preview-image-type (quote png))
  '(package-selected-packages
