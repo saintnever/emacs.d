@@ -11,6 +11,8 @@
              '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives
              '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives
+             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 (package-initialize)
 (when (not package-archive-contents)
@@ -173,12 +175,12 @@ ac-source-words-in-same-mode-buffers))
 ;; --------------------------------------
 (elpy-enable)
 (elpy-use-ipython)
-(setq elpy-rpc-backend "jedi")
-(setq
-      python-shell-interpreter "python")
-      ;; python-shell-interpreter-args
-         ;; "-i C:\\Anaconda2\\Scripts\\ipython-script.py console --pylab=qt")
-(require 'request)
+;; (setq elpy-rpc-backend "jedi")
+;; (setq
+;;      python-shell-interpreter "ipython"
+;;      python-shell-interpreter-args "-i --simple-prompt C:/Anaconda2/Scripts/ipython-script.py console --pylab=qt "
+;; )
+;; (require 'request)
 (require 'ein)        
 (setq ein:use-auto-complete t)
 ;; use flycheck not flymake with elpy
