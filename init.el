@@ -34,6 +34,7 @@
     ace-jump-mode
     smart-mode-line
     nyan-mode
+    arduino-mode
     ))
 
 (mapc #'(lambda (package)
@@ -57,9 +58,35 @@
                     (font-spec :family "Microsoft YaHei" :Size 14)))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
 (global-set-key (kbd "M-o")  'mode-line-other-buffer)
+(setq sentence-end-double-space nil)
+
+;; YASNIPPET SETTING
 (require 'yasnippet)
 (yas-global-mode 1)
-(setq sentence-end-double-space nil)
+;; Completing point by some yasnippet key
+(defun yas-ido-expand ()
+  "Lets you select (and expand) a yasnippet key"
+  (interactive)
+    (let ((original-point (point)))
+      (while (and
+              (not (= (point) (point-min) ))
+              (not
+               (string-match "[[:space:]\n]" (char-to-string (char-before)))))
+        (backward-word 1))
+    (let* ((init-word (point))
+           (word (buffer-substring init-word original-point))
+           (list (yas-active-keys)))
+      (goto-char original-point)
+      (let ((key (remove-if-not
+                  (lambda (s) (string-match (concat "^" word) s)) list)))
+        (if (= (length key) 1)
+            (setq key (pop key))
+          (setq key (ido-completing-read "key: " list nil nil word)))
+        (delete-char (- init-word original-point))
+        (insert key)
+        (yas-expand)))))
+
+(define-key yas-minor-mode-map (kbd "<C-tab>")     'yas-ido-expand)
 
 ;;MODELINE SETTING
 (setq sml/name-width 30)  
@@ -93,6 +120,8 @@ ac-source-words-in-same-mode-buffers))
 ;; (ac-flyspell-workaround)
 (setq ac-delay 0.2)
 
+
+
 ;; ISPELL SETTING
 (require 'ispell)
 (add-to-list 'ispell-dictionary-alist '(
@@ -111,6 +140,7 @@ ac-source-words-in-same-mode-buffers))
 ; FLYSPELL SETTING
 (require 'flyspell-correct-ido)
 (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic)
+
 ;; PROGRAMMING SETTING
 ;; ----------------------------------------
 ;; delimiter settings
@@ -134,11 +164,21 @@ ac-source-words-in-same-mode-buffers))
             (comment-dwim arg)))
 (global-set-key "\M-;" 'comment-dwim-line)
 
+;; Arduino Setting
+(add-to-list 'ac-modes 'arduino-mode)
+(add-hook 'arduino-mode-hook 'electric-pair-mode)
+(add-hook 'arduino-mode-hook 'rainbow-delimiters-mode)
+
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
 (elpy-enable)
 (elpy-use-ipython)
-;; (require 'request)
+(setq elpy-rpc-backend "jedi")
+(setq
+      python-shell-interpreter "python")
+      ;; python-shell-interpreter-args
+         ;; "-i C:\\Anaconda2\\Scripts\\ipython-script.py console --pylab=qt")
+(require 'request)
 (require 'ein)        
 (setq ein:use-auto-complete t)
 ;; use flycheck not flymake with elpy
@@ -151,6 +191,7 @@ ac-source-words-in-same-mode-buffers))
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 ;; Emacs25 have issue with elpy, so disable warning
 (setq python-shell-prompt-detect-failure-warning nil)
+
 ;; LaTeX SETTING
 ;; ----------------------------------------
 ;; reftex SETTING	
@@ -162,14 +203,16 @@ ac-source-words-in-same-mode-buffers))
 ;;auto complete
 (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
-(add-hook 'LaTeX-mode-hook 'auto-complete-mode)   
+(add-hook 'LaTeX-mode-hook 'auto-complete-mode)
+
 ;; set XeTeX mode in TeX/LaTeX
 (add-hook 'LaTeX-mode-hook 
           (lambda()
              (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
             ; (setq TeX-command-default "XeLaTeX")
              (setq TeX-save-query nil)
-             (setq TeX-show-compilation t)))
+            ; (setq TeX-show-compilation t)
+             ))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -195,12 +238,12 @@ ac-source-words-in-same-mode-buffers))
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(default-input-method "chinese-flypy")
-  '(org-agenda-files (quote ("~/.emacs.d/org/thu.org")))
- '(preview-gs-command "gswin64c")
- '(preview-image-type (quote png))
+ '(org-agenda-files (quote ("~/.emacs.d/org/thu.org")))
  '(package-selected-packages
    (quote
-    (auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode))))
+    (arduino-mode auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
+ '(preview-gs-command "gswin64c")
+ '(preview-image-type (quote png)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
