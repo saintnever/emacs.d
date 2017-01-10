@@ -42,42 +42,43 @@
 *** DONE Electrode coupling experiment
     SCHEDULED: <2016-12-10 Sat>
     + different electrode size, frequency, amplitude
-** TODO User Study
-*** INPROGRESS User study design [0%]
+** INPROGRESS User study 
     DEADLINE: <2016-12-25 Sun>
     + [ ] Study purpose design
     + [ ] Case selection 
     + [ ] Task design and data collection  
     + [ ] Questionnaire design
-*** TODO Pilot study
-    SCHEDULED: <2016-12-27 Tue>
-** CANCELED Hardware implementation
-*** CANCELED Hardware design [25%]
-    SCHEDULED: <2016-12-13 Tue>-<2016-12-18 Sun>
-    + [X] Parts selection
-    + [ ] Opamp module verification
-    + [ ] Schematic design and validation 
-    + [ ] Layout and send out for manufacturing
-*** CANCELED Hardware debug and evaluation[%]
-** POSTPONED Application scenarios
-*** DONE Brainstorm cases
-    SCHEDULED: <2016-12-20 Tue>
-*** INPROGRESS Buy materials required
-*** TODO Application realization 
+** Hardware implementation
+    SCHEDULED: <2017-01-10 Tue>-<2017-01-14 Sat>
+*** DONE Parts selection
+*** TODO Schematic design and validation<2017-01-12 Thu>
+*** TODO Layout and send out for manufacturing<2017-01-13 Fri>-<2017-01-14 Sat>
+      - need to be earlier than 15th due to the spring festival 
+** System evaluation
+    SCHEDULED: <2017-02-06 Mon>-<2017-02-12 Sun>
+*** TODO Evaluation flow design <2017-02-08 Wed>
+*** TODO Test platforms development <2017-02-10 Fri>
+*** TODO User study - 2days <2017-02-12 Sun>
+** Application Scenarios 
+    SCHEDULED: <2017-02-13 Mon>-<2017-02-14 Tue>
+*** TODO Office
+*** TODO Living room
+*** TODO Gym 
+    
 * Assignments                                                         :class:
 
 ** TODO Cognitive
 
 *** DONE Project 1
     SCHEDULED: <2016-12-05 Mon>
-*** TODO Project 2
+*** DONE Project 2
 ** TODO Big Data
 *** DONE Project 2
     SCHEDULED: <2016-12-10 Sat> DEADLINE: <2016-12-16 Fri>
 *** DONE Presentation 
     SCHEDULED:  <2016-12-20 Tue>
 ** TODO Machine Learning
-*** TODO Project 
+*** TODO Machine Learning Project 
     DEADLINE: <2017-01-02 Mon>
 ** TODO Game Theory
 *** DONE Presentation 
