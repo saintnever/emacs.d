@@ -14,6 +14,7 @@
 (add-to-list 'package-archives
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
+(load-file "~/.emacs.d/packages/kite.el")
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -52,7 +53,7 @@
 (global-linum-mode t) ;; enable line numbers globally
 (cond
  ((eq system-type 'windows-nt)
-  (set-default-font "Lucida Sans Unicode 12")))
+  (set-default-font "Ubuntu Mono 12")))
 ;; Chinese Font 
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
@@ -206,6 +207,7 @@ ac-source-words-in-same-mode-buffers))
 (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook 'auto-complete-mode)
+(add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
 
 ;; set XeTeX mode in TeX/LaTeX
 (add-hook 'LaTeX-mode-hook 
@@ -267,7 +269,8 @@ ac-source-words-in-same-mode-buffers))
 
 ;; chinese XiaoHe input
 (require 'flypy)
-
+;; kite augmented coding
+(require 'kite)
 ;;smex
 (autoload 'smex "smex")
 (global-set-key (kbd "M-x") 'smex)
