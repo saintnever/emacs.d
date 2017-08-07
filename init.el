@@ -53,12 +53,14 @@
 (global-linum-mode t) ;; enable line numbers globally
 (cond
  ((eq system-type 'windows-nt)
-  (set-default-font "Ubuntu Mono 12")))
+  (set-default-font "Lucida Grande 10")
+  ;; (set-default-font "Ubuntu Mono 14")
+  ))
 ;; Chinese Font 
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
                     charset
-                    (font-spec :family "Microsoft YaHei" :Size 14)))
+                    (font-spec :family "Microsoft YaHei" :Size 12)))
 (global-set-key (kbd "C-x g") 'magit-status) ;;set magit shortcut
 (global-set-key (kbd "M-o")  'mode-line-other-buffer)
 (setq sentence-end-double-space nil)
@@ -107,7 +109,7 @@
 (ac-config-default)
 (require 'ac-math)
 (add-to-list 'ac-modes 'latex-mode)
-;(add-to-list 'ac-modes 'LaTeX-mode)
+(add-to-list 'ac-modes 'LaTeX-mode)
 (setq ac-sources '(ac-source-yasnippet
 ac-source-abbrev 
 ac-source-words-in-same-mode-buffers))
@@ -199,6 +201,8 @@ ac-source-words-in-same-mode-buffers))
 ;; ----------------------------------------
 ;; reftex SETTING	
 (require 'reftex)	
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
 (setq reftex-plug-into-AUCTeX t)
@@ -207,6 +211,7 @@ ac-source-words-in-same-mode-buffers))
 (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook 'auto-complete-mode)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
 
 ;; set XeTeX mode in TeX/LaTeX
@@ -227,10 +232,10 @@ ac-source-words-in-same-mode-buffers))
  '(TeX-source-correlate-mode t)
  '(TeX-view-program-list
    (quote
-    (("Sumatra PDF"
-      ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
-       (mode-io-correlate " -forward-search %b %n")
-       " %o")))))
+ (("Sumatra PDF"
+   ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
+    (mode-io-correlate " -forward-search %b %n")
+    " %o")))))
  '(TeX-view-program-selection
    (quote
     (((output-dvi style-pstricks)
