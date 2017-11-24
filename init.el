@@ -1,8 +1,14 @@
 
-;; init.el --- Emacs configuration
+;; init.el - -- Emacs configuration
 
 ;; INSTALL PACKAGES
 ;; --------------------------------------
+
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
 
 (add-to-list 'load-path "~/.emacs.d/packages/")
 (require 'package)
@@ -12,9 +18,8 @@
 (add-to-list 'package-archives
              '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives
-             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+             '("elpy" . "http: // jorgenschaefer.github.io / packages /"))
 
-(load-file "~/.emacs.d/packages/kite.el")
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -27,8 +32,8 @@
     elpy
     flycheck
     flyspell-correct
-    material-theme
     py-autopep8
+    material-theme
     magit
     auctex
     smex
@@ -38,23 +43,26 @@
     smart-mode-line
     nyan-mode
     arduino-mode
+    anaconda-mode
     ))
 
 (mapc #'(lambda (package)
-    (unless (package-installed-p package)
-      (package-install package)))
-      myPackages)
+     (unless(package-installed-p package)
+       (package-install package)))
+ 	 myPackages)
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
-
-(setq inhibit-startup-message t) ;; hide the startup message
-(load-theme 'material t) ;; load material theme
-(global-linum-mode t) ;; enable line numbers globally
+(require 'ido)
+(ido-mode t)
+(tool-bar-mode -1)
+(setq inhibit-startup-message t); ; hide the startup message
+(load-theme 'material t); ; load material theme
+(global-linum-mode t); ; enable line numbers globally
 (cond
  ((eq system-type 'windows-nt)
-  (set-default-font "Lucida Grande 10")
-  ;; (set-default-font "Ubuntu Mono 14")
+  ;; (set-default-font "Lucida Grande 10")
+  (set-default-font "Ubuntu Mono 12")
   ))
 ;; Chinese Font 
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
@@ -106,7 +114,7 @@
 ;; AUTO-COMPLETE SETTING
 (require 'auto-complete)
 (require 'auto-complete-config)
-(ac-config-default)
+;; (ac-config-default)
 (require 'ac-math)
 (add-to-list 'ac-modes 'latex-mode)
 (add-to-list 'ac-modes 'LaTeX-mode)
@@ -123,7 +131,7 @@ ac-source-words-in-same-mode-buffers))
 (add-hook 'LaTeX-mode-hook 'ac-LaTeX-mode-setup)
 (setq ac-math-unicode-in-math-p t)
 ;; (ac-flyspell-workaround)
-(setq ac-delay 0.2)
+;; (setq ac-delay 0.2)
 
 
 
@@ -138,10 +146,10 @@ ac-source-words-in-same-mode-buffers))
                                             ("-d" "en_US")
                                             nil
                                             utf-8)))
-(setq-default ispell-program-name (executable-find "hunspell"))
-(setq ispell-local-dictionary-alist ispell-dictionary-alist)
-(setq ispell-hunspell-dictionary-alist ispell-dictionary-alist)
-(setq ispell-dictionary "english")
+(setq-default ispell-program-name "C:/Program Files (x86)/Aspell/bin/aspell.exe")
+;; (setq ispell-local-dictionary-alist ispell-dictionary-alist)
+;; (setq ispell-hunspell-dictionary-alist ispell-dictionary-alist)
+(setq ispell-dictionary "american")
 ; FLYSPELL SETTING
 (require 'flyspell-correct-ido)
 (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic)
@@ -176,26 +184,39 @@ ac-source-words-in-same-mode-buffers))
 
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
-(elpy-enable)
-(elpy-use-ipython)
+(require 'anaconda-mode)
+(setq
+     ;; python-shell-interpreter "C:/Users/saintnever/Anaconda2/python.exe"
+     python-shell-interpreter "ipython"
+     ;; python-shell-interpreter-args "-i C:/Users/saintnever/Anaconda2/Scripts/ipython-script.py"
+     )
+
+(require 'py-autopep8)			
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+(add-hook 'python-mode-hook 'anaconda-mode)
+(add-hook 'python-mode-hook 'eldoc-mode)
+(add-hook 'python-mode-hook 'company-mode)
+(eval-after-load "company"
+ '(add-to-list 'company-backends 'company-anaconda))
+;; (elpy-enable)
+;; (elpy-use-ipython)
+;; ;; (add-hook 'python-mode-hook 'jedi:setup)
+;; ;; (setq jedi:complete-on-dot t)    
 ;; (setq elpy-rpc-backend "jedi")
-;; (setq
-;;      python-shell-interpreter "ipython"
-;;      python-shell-interpreter-args "-i --simple-prompt C:/Anaconda2/Scripts/ipython-script.py console --pylab=qt "
-;; )
+
 ;; (require 'request)
-(require 'ein)        
-(setq ein:use-auto-complete t)
+;; (require 'ein)        
+;; (setq ein:use-auto-complete t)
 ;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; (when (require 'flycheck nil t)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; enable autopep8 formatting on save
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+;; (require 'py-autopep8)
+;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 ;; Emacs25 have issue with elpy, so disable warning
-(setq python-shell-prompt-detect-failure-warning nil)
+;; (setq python-shell-prompt-detect-failure-warning nil)
 
 ;; LaTeX SETTING
 ;; ----------------------------------------
@@ -205,6 +226,9 @@ ac-source-words-in-same-mode-buffers))
 (setq TeX-parse-self t)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+(setq reftex-external-file-finders
+'(("tex" . "/path/to/kpsewhich -format=.tex %f")
+  ("bib" . "/path/to/kpsewhich -format=.bib %f")))
 (setq reftex-plug-into-AUCTeX t)
 
 ;;auto complete
@@ -232,10 +256,10 @@ ac-source-words-in-same-mode-buffers))
  '(TeX-source-correlate-mode t)
  '(TeX-view-program-list
    (quote
- (("Sumatra PDF"
-   ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
-    (mode-io-correlate " -forward-search %b %n")
-    " %o")))))
+    (("Sumatra PDF"
+      ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
+       (mode-io-correlate " -forward-search %b %n")
+       " %o")))))
  '(TeX-view-program-selection
    (quote
     (((output-dvi style-pstricks)
@@ -250,7 +274,7 @@ ac-source-words-in-same-mode-buffers))
  '(org-agenda-files (quote ("~/.emacs.d/org/thu.org")))
  '(package-selected-packages
    (quote
-    (arduino-mode auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
+    (company-shell company-auctex company-eshell-autosuggest anaconda-mode virtualenv arduino-mode auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
  '(preview-gs-command "gswin64c")
  '(preview-image-type (quote png)))
 
@@ -275,7 +299,7 @@ ac-source-words-in-same-mode-buffers))
 ;; chinese XiaoHe input
 (require 'flypy)
 ;; kite augmented coding
-(require 'kite)
+;;(require 'kite)
 ;;smex
 (autoload 'smex "smex")
 (global-set-key (kbd "M-x") 'smex)
