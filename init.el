@@ -18,7 +18,7 @@
 (add-to-list 'package-archives
              '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives
-             '("elpy" . "http: // jorgenschaefer.github.io / packages /"))
+             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 (package-initialize)
 (when (not package-archive-contents)
@@ -226,17 +226,25 @@ ac-source-words-in-same-mode-buffers))
 (setq TeX-parse-self t)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
-(setq reftex-external-file-finders
-'(("tex" . "/path/to/kpsewhich -format=.tex %f")
-  ("bib" . "/path/to/kpsewhich -format=.bib %f")))
+;; (setq reftex-external-file-finders
+;; '(("tex" . "/path/to/kpsewhich -format=.tex %f")
+;;   ("bib" . "/path/to/kpsewhich -format=.bib %f")))
 (setq reftex-plug-into-AUCTeX t)
 
-;;auto complete
+
 (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
-(add-hook 'LaTeX-mode-hook 'auto-complete-mode)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
+
+(add-hook 'latex-mode-hook 'company-mode)  
+(add-hook 'LaTeX-mode-hook 'company-mode)
+(defun my-latex-mode-setup ()
+  (setq-local company-backends
+              (append '((company-math-symbols-latex company-math-symbols-unicode company-auctex-macros company-auctex-environments))
+                      company-backends)))
+(company-auctex-init)
+(add-hook 'LaTeX-mode-hook 'my-latex-mode-setup)
 
 ;; set XeTeX mode in TeX/LaTeX
 (add-hook 'LaTeX-mode-hook 
@@ -274,7 +282,7 @@ ac-source-words-in-same-mode-buffers))
  '(org-agenda-files (quote ("~/.emacs.d/org/thu.org")))
  '(package-selected-packages
    (quote
-    (company-shell company-auctex company-eshell-autosuggest anaconda-mode virtualenv arduino-mode auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
+    (company-math company-shell company-auctex company-eshell-autosuggest anaconda-mode virtualenv arduino-mode auctex smex rainbow-delimiters py-autopep8 material-theme magit highlight-parentheses flycheck elpy ein better-defaults ace-jump-mode)))
  '(preview-gs-command "gswin64c")
  '(preview-image-type (quote png)))
 
@@ -291,10 +299,17 @@ ac-source-words-in-same-mode-buffers))
 (global-set-key (kbd "C-c a") 'org-agenda)
 
 ;; window navigation settings
-(global-set-key (kbd "C-x <up>") 'windmove-up)
-(global-set-key (kbd "C-x <down>") 'windmove-down)
-(global-set-key (kbd "C-x <right>") 'windmove-right)
-(global-set-key (kbd "C-x <left>") 'windmove-left)
+;; (global-set-key (kbd "C-x <up>") 'windmove-up)
+;; (global-set-key (kbd "C-x <down>") 'windmove-down)
+;; (global-set-key (kbd "C-x <right>") 'windmove-right)
+;; (global-set-key (kbd "C-x <left>") 'windmove-left)
+
+(defun frame-bck()
+  (interactive)
+  (other-window-or-frame -1)
+)
+(define-key (current-global-map) (kbd "M-O") 'other-window)
+;; (define-key (current-global-map) (kbd "M-O") 'frame-bck)
 
 ;; chinese XiaoHe input
 (require 'flypy)
